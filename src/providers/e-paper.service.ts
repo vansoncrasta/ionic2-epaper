@@ -17,7 +17,7 @@ export class EPaperService {
       .map(response => {
         let body = response.text();
         console.log((body.split('.PDF').length-1)/2);
-        console.log(body);
+        //console.log(body);
       });
   }
 
