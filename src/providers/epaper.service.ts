@@ -11,6 +11,10 @@ export class EPaperService {
     console.log('Hello EPaper Provider');
   }
 
+  getEPaperDetails(){
+
+  }
+
   downloadEPaper(): Observable <any> {
     console.log("I am called");
     return this.http.get("https://erelego.com/eNewspaper/News/UVANI/MAN/2017/03/12/")

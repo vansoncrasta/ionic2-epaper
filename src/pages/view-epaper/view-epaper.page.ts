@@ -6,10 +6,10 @@ import * as moment from 'moment';
 declare var cordova: any;
 
 @Component({
-  selector: 'page-view-paper',
-  templateUrl: 'view-paper.page.html'
+  selector: 'page-view-epaper',
+  templateUrl: 'view-epaper.page.html'
 })
-export class ViewPaperPage {
+export class ViewEPaperPage {
   storageDirectory: string = '';
   pdfUrl: string;
   zoom: number;

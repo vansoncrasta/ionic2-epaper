@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ViewPaperPage } from '../index';
+import { ViewEPaperPage } from '../index';
 import { EPaperService } from '../../providers/index';
 
 @Component({
@@ -16,7 +16,7 @@ export class MyEPapersPage {
   }
 
   goToEPaper(){
-    this.navCtrl.push(ViewPaperPage);
+    this.navCtrl.push(ViewEPaperPage);
   }
 
   downloadEPaper(){

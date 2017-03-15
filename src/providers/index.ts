@@ -1,1 +1,1 @@
-export * from './e-paper.service';
+export * from './epaper.service';
