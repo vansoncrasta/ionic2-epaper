@@ -36,8 +36,8 @@ export class EPapersPage {
       );
   }
 
-  epaperSelected($event, epaper) {
-    this.navCtrl.push(EPaperDetailsPage, epaper);
+  epaperSelected($event, epaper, edition) {
+    this.navCtrl.push(EPaperDetailsPage, {selectedEPaper: epaper, selectedEdition: edition});
   }
 
 }

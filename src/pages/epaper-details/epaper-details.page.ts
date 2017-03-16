@@ -8,11 +8,14 @@ import { NavController, NavParams } from 'ionic-angular';
 export class EPaperDetailsPage {
 
   private todaysDate: Date;
-  private epaper: any;
+  private epaper: any = "";
+  private edition: any = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.todaysDate = new Date();
-    this.epaper = this.navParams.data;
+    console.log(this.navParams);
+    this.epaper = this.navParams.data.selectedEPaper;
+    this.edition = this.navParams.data.selectedEdition;
   }
 
   ionViewDidLoad() {
