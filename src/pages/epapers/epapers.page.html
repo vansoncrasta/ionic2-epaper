@@ -1,10 +1,14 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>E-Papers</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+<ion-list>
+  <button ion-item *ngFor="let epaper of epapers" (click)="epaperSelected($event, epaper)">
+    {{ epaper.name }}
+  </button>  
+</ion-list>
 </ion-content>

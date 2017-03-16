@@ -1,7 +1,7 @@
 import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
-import {MyEPapersPage, ViewEPaperPage} from '../pages/index';
+import {MyEPapersPage, ViewEPaperPage, EPaperDetailsPage, EPapersPage} from '../pages/index';
 import {EPaperService} from '../providers/index';
 import {PdfViewerComponent} from 'ng2-pdf-viewer';
 
@@ -10,6 +10,8 @@ import {PdfViewerComponent} from 'ng2-pdf-viewer';
     MyApp,
     MyEPapersPage,
     ViewEPaperPage,
+    EPaperDetailsPage,
+    EPapersPage,
     PdfViewerComponent
   ],
   imports: [
@@ -19,6 +21,8 @@ import {PdfViewerComponent} from 'ng2-pdf-viewer';
   entryComponents: [
     MyApp,
     MyEPapersPage,
+    EPaperDetailsPage,
+    EPapersPage,
     ViewEPaperPage
   ],
   providers: [
