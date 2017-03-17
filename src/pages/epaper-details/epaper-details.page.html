@@ -10,20 +10,26 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            {{edition.name}} Edition
-            <br>
-            {{todaysDate | date:"dd-MMMM-yyyy"}}
+            {{epaper.editionName}} Edition
+            <br> {{epaper.publishDate | date:"dd-MMMM-yyyy"}}
           </ion-col>
           <ion-col text-right>
-            <button ion-button icon-right small>
-              Set as Favourite
-              <ion-icon name="star"></ion-icon>
+            <button ion-button icon-right>Favourite<ion-icon name="star"></ion-icon>
             </button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-header>
     <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+          </ion-col>
+          <ion-col text-right>
+            <button ion-button icon-right (click)="viewEPaper($event)">Read<ion-icon name="book"></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

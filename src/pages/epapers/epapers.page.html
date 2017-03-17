@@ -9,7 +9,7 @@
   <ion-item-group *ngFor="let epaper of epapers">
     <ion-item-divider color="light">{{ epaper.name | uppercase}}</ion-item-divider>
     <button ion-item *ngFor="let edition of epaper.editions" (click)="epaperSelected($event, epaper, edition)">
-      {{ edition.name }} Edition
+      {{ epaper.name }} Edition
     </button>
   </ion-item-group>
 </ion-content>

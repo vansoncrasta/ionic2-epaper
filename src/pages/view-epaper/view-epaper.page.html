@@ -10,13 +10,15 @@
 </ion-header>
 
 
-<ion-content padding>
-  <!--button ion-button (click)="downloadImage('test_1.jpeg')" color="secondary">Download image</button>
-  <button ion-button (click)="viewPaper('test_1.jpeg')">View</button>
-  <button ion-button (click)="retrieveImage('test_1.jpeg')" color="secondary">Retrieve downloaded image</button-->
+<ion-content>
+  <pdf-viewer [src]="pdfUrl" [original-size]="false" [zoom]="zoom" [render-text]="false" style="display: block;"></pdf-viewer>
+  
+  <!--button ion-button (click)="downloadImage('test_1.jpeg')" color="secondary">Download image</button-->
+  <!--button ion-button (click)="viewPaper('test_1.jpeg')">View</button-->
+  <!--button ion-button (click)="retrieveImage('test_1.jpeg')" color="secondary">Retrieve downloaded image</button-->
 
   <!--button ion-button (click)="downloadPDF('test_1.PDF')" color="secondary">Download PDF</button-->
-  <button ion-button (click)="viewPDF('test_1.PDF')">View PDF</button>
+  <!--button ion-button (click)="viewPDF('test_1.PDF')">View PDF</button-->
 
   <!--ion-fab left bottom>
     <button ion-fab mini (click)="zoomSub()"><ion-icon name="remove"></ion-icon></button>
@@ -24,18 +26,11 @@
   <ion-fab right bottom>
     <button ion-fab mini (click)="zoomAdd()"><ion-icon name="add"></ion-icon></button>
   </ion-fab-->
-
-  <pdf-viewer [src]="pdfUrl"
-              [page]="page"
-              [original-size]="false"
-              [zoom]="zoom"
-              [render-text]="true"
-              style="display: block;"></pdf-viewer>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-range min="100" max="200" step="1" debounce="700" [(ngModel)]="zoomRange" (ionChange)="changeZoom()" color="light">
+    <ion-range min="150" max="200" step="1" debounce="700" [(ngModel)]="selectedZoom" (ionChange)="changeZoom()" color="light">
       <ion-icon range-left small name="search" color="light"></ion-icon>
       <ion-icon range-right name="search" color="light"></ion-icon>
     </ion-range>
