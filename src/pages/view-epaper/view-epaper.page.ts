@@ -51,7 +51,8 @@ export class ViewEPaperPage {
     this.platform.ready().then(() => {
       console.log("Calling download service");
       let loading = this.loadingCtrl.create({
-        content: 'Loading...'
+        content: 'Loading...',
+        dismissOnPageChange: true
       });
       loading.present();
       this.epaperService.createDirectory(this.storageDirectory, this.epaper.url).then(
@@ -62,12 +63,19 @@ export class ViewEPaperPage {
             .then(
             (success) => {
               console.log("Download complete");
-              loading.dismiss();
               this.viewEPaperPDF(this.fileNamePrefix + "1");
+              loading.dismiss();
             },
-            (failure) => {
+            (error) => {
               console.log("Error in downloading file");
               loading.dismiss();
+              const alertFailure = this.alertCtrl.create({
+                title: `Download Failed!`,
+                subTitle: `File was not successfully downloaded. Error code: ${error.code}`,
+                buttons: ['Ok']
+              });
+
+              alertFailure.present();
             }
             );
         });
