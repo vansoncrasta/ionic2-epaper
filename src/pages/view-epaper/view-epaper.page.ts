@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular';
-import { File, Transfer } from 'ionic-native';
+import { Transfer } from 'ionic-native';
 import { EPaperService } from '../../providers/index';
 import { EPaper } from '../../models/index';
 import * as moment from 'moment';
@@ -135,6 +135,10 @@ export class ViewEPaperPage {
 
   goToHomePage() {
     this.navCtrl.popToRoot();
+  }
+
+  public pdfLoadComplete($event){
+    console.log("Load Complete");
   }
 
   /* 

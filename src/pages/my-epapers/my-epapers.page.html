@@ -7,8 +7,37 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <button ion-button color="primary" (click)="goToEPapersPage()">Find E-Papers</button>
-  <button ion-button color="primary" (click)="goToEPaper()">Go To E-Paper</button>
-  <button ion-button color="primary" (click)="downloadEPaper()">Download EPaper</button>
+<ion-content>
+
+  <ion-card>
+    <ion-card-header class="my-epapers-header">No Favourite E-Papers</ion-card-header>
+    <ion-card-content>
+      <p>You are currently not following any E-Papers.</p>
+      <p>First select a E-Paper, then you can follow it from their details page.</p>
+      <button ion-button icon-left full (click)="goToEPapersPage()">
+        <ion-icon name="search"></ion-icon>
+        Find a E-Paper
+      </button>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!--ion-card *ngIf="favorites">
+        <ion-list>
+            <ion-list-header class="my-teams-header">Followed Teams</ion-list-header>
+            <button icon-left ion-item *ngFor="let item of favorites" (click)="favoriteTapped($event, item)">
+                <ion-icon name="star"></ion-icon>
+                {{item.team.name}}
+                <p>{{item.tournamentName}}</p>
+            </button>
+        </ion-list>
+        <ion-card-content>
+            <p>To follow more teams, select a tournament, 
+                then you can follow teams from their team page.</p>    
+            <button icon-left ion-button full (click)="goToTournaments()">
+                <ion-icon name="search"></ion-icon>
+                Find a Tournament
+            </button>
+        </ion-card-content>
+    </ion-card-->
 </ion-content>

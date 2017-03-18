@@ -45,4 +45,7 @@ export class EPapersPage {
     this.navCtrl.push(EPaperDetailsPage, this.selectedEPaper);
   }
 
+  goToHomePage() {
+    this.navCtrl.popToRoot();
+  }
 }

@@ -6,4 +6,5 @@ export class EPaper {
   noOfPages: number = 0;
   publishDate: Date;
   url: string = "";
+  thumbnailsFullUrl = "";
 }

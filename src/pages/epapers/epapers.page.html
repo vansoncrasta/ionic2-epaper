@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>E-Papers</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToHomePage()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -9,7 +14,7 @@
   <ion-item-group *ngFor="let epaper of epapers">
     <ion-item-divider color="light">{{ epaper.name | uppercase}}</ion-item-divider>
     <button ion-item *ngFor="let edition of epaper.editions" (click)="epaperSelected($event, epaper, edition)">
-      {{ epaper.name }} Edition
+      {{ edition.name }} Edition
     </button>
   </ion-item-group>
 </ion-content>

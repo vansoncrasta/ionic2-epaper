@@ -11,7 +11,7 @@
 
 
 <ion-content>
-  <pdf-viewer [src]="pdfUrl" [original-size]="false" [zoom]="zoom" [render-text]="false" style="display: block;"></pdf-viewer>
+  <pdf-viewer [src]="pdfUrl" [original-size]="false" [zoom]="zoom" [render-text]="false" style="display: block;" (after-load-complete)="pdfLoadComplete($event)"></pdf-viewer>
   
   <!--button ion-button (click)="downloadImage('test_1.jpeg')" color="secondary">Download image</button-->
   <!--button ion-button (click)="viewPaper('test_1.jpeg')">View</button-->

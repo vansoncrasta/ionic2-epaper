@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
 import { File, Transfer } from 'ionic-native';
 import { EPaper } from '../models/index';
+import * as moment from 'moment';
 
 @Injectable()
 export class EPaperService {
@@ -26,6 +27,7 @@ export class EPaperService {
       .map(response => {
         let body = response.text();
         epaper.noOfPages = ((body.split('.PDF').length - 1) / 2);
+        epaper.thumbnailsFullUrl = this.siteUrl + epaper.url + "/Thumbnails/" + moment(epaper.publishDate).format("YYYYMMDD") + "_1_carousalthumb.jpg";
         return epaper;
       });
   }
