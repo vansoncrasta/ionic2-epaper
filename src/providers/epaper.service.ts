@@ -87,14 +87,37 @@ export class EPaperService {
       );
   }
 
-  public downloadEPaperPagePDF(epaperUrl: string, fileDirectory: string, fileName: string) {
-    const fileTransfer = new Transfer();
-    let url = this.siteUrl + "/" + epaperUrl + "/" + fileName + ".PDF";
-    console.log(url);
+  public downloadEPaperPdfPages(epaperUrl: string, fileDirectory: string, fileNamePrefix: string, startPageNo: number, endPageNo: number) {
+
+    //let url = this.siteUrl + "/" + epaperUrl + "/" + fileNamePrefix + ".PDF";
+    let url = null;
     console.log(fileDirectory);
-    return fileTransfer.download(url, fileDirectory + fileName + ".PDF").then(
-      (success) => {
-        console.log("Download Successful");
-      });
+
+    let promiseChain: Array<any> = [];
+    for (let page = startPageNo; page <= endPageNo; page++) {
+      url = this.siteUrl + "/" + epaperUrl + "/" + fileNamePrefix + page + ".PDF";
+      console.log(page + " Loop: " + url);
+      promiseChain.push(this.downloadEPaperPdfPage(url, fileDirectory, fileNamePrefix + page + ".PDF"));
+    }
+    return Promise.all(promiseChain);
   }
+
+  private downloadEPaperPdfPage(fileUrl, fileDirectory, fileName) {
+    const fileTransfer = new Transfer();
+    console.log("Remote: " + fileUrl);
+    return File.checkFile(fileDirectory, fileName).then(
+      (exists) => {
+        console.log("File Exists: " + fileName);
+      },
+      (error) => {
+        console.log("File does not exist: " + fileName + ". Attempting to create.");
+        return fileTransfer.download(fileUrl, fileDirectory + fileName).then(
+          (success) => {
+            console.log("Download Successful");
+          });
+      }
+    );
+  }
+
+
 }

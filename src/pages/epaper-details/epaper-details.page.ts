@@ -11,6 +11,8 @@ import * as moment from 'moment';
 })
 export class EPaperDetailsPage {
   private epaper: EPaper;
+  //workaround as Java date will not work on Ionic Date Picker.
+  private publishDate: any;
   private todaysDate: any;
   private minDateForPicker: any;
   private loading: any;
@@ -19,12 +21,13 @@ export class EPaperDetailsPage {
     this.epaper = this.navParams.data;
     this.epaper.publishDate = new Date();
     //toISOString() returns time in UTC. Add 6 hrs to compensate IST.
-    this.todaysDate = moment(this.epaper.publishDate).add(6, 'hours').toISOString();
+    this.todaysDate = moment().add(6, 'hours').toISOString();
+    this.publishDate = moment().add(6, 'hours').toISOString();
     //Only last 7 days of paper available.
     this.minDateForPicker = moment().subtract(7, 'day').toISOString();
     this.epaper.url = this.epaper.id + "/" + this.epaper.editionID + "/" + moment(this.epaper.publishDate).format("YYYY/MM/DD");
     console.log(this.epaper.url);
-    console.log(this.todaysDate);
+    console.log(this.publishDate);
   }
 
   ionViewDidLoad() {
@@ -38,8 +41,8 @@ export class EPaperDetailsPage {
 
   // As of ionic 2.2.0 <ion-datetime> does not support Javascript date.
   // https://github.com/driftyco/ionic/issues/9348
-  public setPublishDate() {
-    this.epaper.publishDate = moment(this.todaysDate).toDate();
+  public setPublishDate(publishDate) {
+    this.epaper.publishDate = moment(publishDate).toDate();
     this.epaper.url = this.epaper.id + "/" + this.epaper.editionID + "/" + moment(this.epaper.publishDate).format("YYYY/MM/DD");
     this.getEPaperDetails();
   }
@@ -67,8 +70,8 @@ export class EPaperDetailsPage {
       });
   }
 
-  ionViewWillLeave() {
-    console.log("ionViewWillLeave");
+  ionViewWillUnload() {
+    console.log("ionViewWillUnload");
     if (this.loading.instance) {
       this.loading.dismiss();
     }

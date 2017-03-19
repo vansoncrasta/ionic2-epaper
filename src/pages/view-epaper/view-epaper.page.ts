@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular';
-import { Transfer } from 'ionic-native';
 import { EPaperService } from '../../providers/index';
 import { EPaper } from '../../models/index';
 import * as moment from 'moment';
@@ -20,12 +19,11 @@ export class ViewEPaperPage {
   //PDF Viewver variables
   private pdfUrl: string;
   private zoom: number;
-  private selectedZoom: number = 185;
+  private selectedZoom: number = 175;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public alertCtrl: AlertController, public epaperService: EPaperService, public loadingCtrl: LoadingController) {
 
     this.epaper = this.navParams.data;
-
     this.platform.ready().then(() => {
       // make sure this is on a device, not an emulation (e.g. chrome tools device mode)
       if (!this.platform.is('cordova')) {
@@ -60,12 +58,16 @@ export class ViewEPaperPage {
         (success) => {
           console.log("Directory Created");
           //Download the first page and close the loading component.
-          this.epaperService.downloadEPaperPagePDF(this.epaper.url, this.fileDirectory, this.fileNamePrefix + "1")
+          this.epaperService.downloadEPaperPdfPages(this.epaper.url, this.fileDirectory, this.fileNamePrefix, 1, 1)
             .then(
             (success) => {
-              console.log("Download complete");
+              console.log("Page 1 Download complete");
               this.viewEPaperPDF(this.fileNamePrefix + "1");
               //dismiss loader after pdf load, check pdfLoadComplete()
+              //Attempt to download other pages in the background.
+              this.epaperService.downloadEPaperPdfPages(this.epaper.url, this.fileDirectory, this.fileNamePrefix, 2, this.epaper.noOfPages).then(
+                (success) => {console.log("All Load complete")}
+              );
             },
             (error) => {
               console.log("Error in downloading file");
@@ -75,7 +77,6 @@ export class ViewEPaperPage {
                 subTitle: `File was not successfully downloaded. Error code: ${error.code}`,
                 buttons: ['Ok']
               });
-
               alertFailure.present();
             }
             );
@@ -83,8 +84,8 @@ export class ViewEPaperPage {
     });
   }
 
-  ionViewWillLeave() {
-    console.log("ionViewWillLeave");
+  ionViewWillUnload() {
+    console.log("ionViewWillUnload");
     //If loading component is not closed. Close it. Required on hardware back button.
     if (this.loading.instance) {
       this.loading.dismiss();
@@ -96,36 +97,6 @@ export class ViewEPaperPage {
     this.pdfUrl = this.fileDirectory + filename + ".PDF";
     this.changeZoom();
     console.log(this.pdfUrl);
-  }
-
-  downloadPDF(image) {
-    this.platform.ready().then(() => {
-
-      const fileTransfer = new Transfer();
-      let url = 'https://erelego.com/eNewspaper/News/UVANI/MAN/2017/02/26/20170226_2.PDF';
-      fileTransfer.download(url, this.storageDirectory + image).then((entry) => {
-        console.log('download complete: ' + entry.toURL());
-
-        const alertSuccess = this.alertCtrl.create({
-          title: `Download Succeeded!`,
-          subTitle: `${image} was successfully downloaded to: ${entry.toURL()}`,
-          buttons: ['Ok']
-        });
-
-        alertSuccess.present();
-
-
-      }, (error) => {
-        const alertFailure = this.alertCtrl.create({
-          title: `Download Failed!`,
-          subTitle: `${image} was not successfully downloaded. Error code: ${error.code}`,
-          buttons: ['Ok']
-        });
-
-        alertFailure.present();
-      });
-
-    });
   }
 
   viewPDF(pdf): any {
@@ -149,6 +120,7 @@ export class ViewEPaperPage {
   public pdfLoadComplete($event) {
     console.log("Load Complete");
     if (this.loading.instance) {
+      console.log("Closing Loading Component");
       this.loading.dismiss();
     }
   }
@@ -194,6 +166,36 @@ export class ViewEPaperPage {
               });
           });
       });
+  }
+
+    downloadPDF(image) {
+    this.platform.ready().then(() => {
+
+      const fileTransfer = new Transfer();
+      let url = 'https://erelego.com/eNewspaper/News/UVANI/MAN/2017/02/26/20170226_2.PDF';
+      fileTransfer.download(url, this.storageDirectory + image).then((entry) => {
+        console.log('download complete: ' + entry.toURL());
+
+        const alertSuccess = this.alertCtrl.create({
+          title: `Download Succeeded!`,
+          subTitle: `${image} was successfully downloaded to: ${entry.toURL()}`,
+          buttons: ['Ok']
+        });
+
+        alertSuccess.present();
+
+
+      }, (error) => {
+        const alertFailure = this.alertCtrl.create({
+          title: `Download Failed!`,
+          subTitle: `${image} was not successfully downloaded. Error code: ${error.code}`,
+          buttons: ['Ok']
+        });
+
+        alertFailure.present();
+      });
+
+    });
   }
 */
 }
