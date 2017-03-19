@@ -13,10 +13,11 @@ export class EPaperDetailsPage {
   private epaper: EPaper;
   private todaysDate: any;
   private minDateForPicker: any;
+  private loading: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public epaperService: EPaperService, public loadingCtrl: LoadingController) {
     this.epaper = this.navParams.data;
-    this.epaper.publishDate = new Date(2017, 2, 18);
+    this.epaper.publishDate = new Date();
     //toISOString() returns time in UTC. Add 6 hrs to compensate IST.
     this.todaysDate = moment(this.epaper.publishDate).add(6, 'hours').toISOString();
     //Only last 7 days of paper available.
@@ -48,22 +49,29 @@ export class EPaperDetailsPage {
   }
 
   public getEPaperDetails() {
-    let loading = this.loadingCtrl.create({
+    this.loading = this.loadingCtrl.create({
       content: 'Loading...',
       //https://github.com/driftyco/ionic/issues/10046
       //Set to false.
       dismissOnPageChange: false
     });
-    loading.present();
+    this.loading.present();
     this.epaperService.getEPaperDetails(this.epaper)
       .subscribe(
       (epaper) => {
         console.log(epaper);
-        loading.dismiss();
+        this.loading.dismiss();
         console.log("Complete");
       }, () => {
-        loading.dismiss();
+        this.loading.dismiss();
       });
+  }
+
+  ionViewWillLeave() {
+    console.log("ionViewWillLeave");
+    if (this.loading.instance) {
+      this.loading.dismiss();
+    }
   }
 
 }

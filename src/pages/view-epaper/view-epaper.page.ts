@@ -15,6 +15,7 @@ export class ViewEPaperPage {
   private fileDirectory: string = "";
   private fileNamePrefix: string = "";
   private epaper: EPaper;
+  private loading: any;
 
   //PDF Viewver variables
   private pdfUrl: string;
@@ -50,11 +51,11 @@ export class ViewEPaperPage {
 
     this.platform.ready().then(() => {
       console.log("Calling download service");
-      let loading = this.loadingCtrl.create({
+      this.loading = this.loadingCtrl.create({
         content: 'Loading...',
-        dismissOnPageChange: true
+        dismissOnPageChange: false
       });
-      loading.present();
+      this.loading.present();
       this.epaperService.createDirectory(this.storageDirectory, this.epaper.url).then(
         (success) => {
           console.log("Directory Created");
@@ -64,11 +65,11 @@ export class ViewEPaperPage {
             (success) => {
               console.log("Download complete");
               this.viewEPaperPDF(this.fileNamePrefix + "1");
-              loading.dismiss();
+              //dismiss loader after pdf load, check pdfLoadComplete()
             },
             (error) => {
               console.log("Error in downloading file");
-              loading.dismiss();
+              this.loading.dismiss();
               const alertFailure = this.alertCtrl.create({
                 title: `Download Failed!`,
                 subTitle: `File was not successfully downloaded. Error code: ${error.code}`,
@@ -80,6 +81,14 @@ export class ViewEPaperPage {
             );
         });
     });
+  }
+
+  ionViewWillLeave() {
+    console.log("ionViewWillLeave");
+    //If loading component is not closed. Close it. Required on hardware back button.
+    if (this.loading.instance) {
+      this.loading.dismiss();
+    }
   }
 
   public viewEPaperPDF(filename: string) {
@@ -137,8 +146,11 @@ export class ViewEPaperPage {
     this.navCtrl.popToRoot();
   }
 
-  public pdfLoadComplete($event){
+  public pdfLoadComplete($event) {
     console.log("Load Complete");
+    if (this.loading.instance) {
+      this.loading.dismiss();
+    }
   }
 
   /* 
