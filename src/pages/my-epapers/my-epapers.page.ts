@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ViewEPaperPage, EPapersPage } from '../index';
+import { EPapersPage } from '../index';
 import { EPaperService } from '../../providers/index';
 
 @Component({
@@ -15,25 +15,8 @@ export class MyEPapersPage {
     console.log('ionViewDidLoad MyEpapersPage');
   }
 
-  goToEPaper() {
-    this.navCtrl.push(ViewEPaperPage);
-  }
-
   goToEPapersPage() {
     this.navCtrl.push(EPapersPage);
   }
-
-/*
-  downloadEPaper() {
-    this.ePaperService
-      .downloadEPaper("")
-      .subscribe(
-      (response) => {
-        console.log(response);
-      }
-      );
-
-  }
-  */
 
 }

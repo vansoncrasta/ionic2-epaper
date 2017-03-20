@@ -15,6 +15,7 @@ export class ViewEPaperPage {
   private fileNamePrefix: string = "";
   private epaper: EPaper;
   private loading: any;
+  private currentPage: number = 1;
 
   //PDF Viewver variables
   private pdfUrl: string;
@@ -41,6 +42,8 @@ export class ViewEPaperPage {
       }
       this.fileDirectory = this.storageDirectory + "/" + this.epaper.url + "/";
       this.fileNamePrefix = moment(this.epaper.publishDate).format("YYYYMMDD") + "_";
+      //Set Default zoom
+      this.changeZoom();
     });
   }
 
@@ -66,7 +69,7 @@ export class ViewEPaperPage {
               //dismiss loader after pdf load, check pdfLoadComplete()
               //Attempt to download other pages in the background.
               this.epaperService.downloadEPaperPdfPages(this.epaper.url, this.fileDirectory, this.fileNamePrefix, 2, this.epaper.noOfPages).then(
-                (success) => {console.log("All Load complete")}
+                (success) => { console.log("All Load complete") }
               );
             },
             (error) => {
@@ -92,19 +95,25 @@ export class ViewEPaperPage {
     }
   }
 
-  public viewEPaperPDF(filename: string) {
-    console.log("Viewing PDF" + this.fileDirectory + filename + ".PDF");
-    this.pdfUrl = this.fileDirectory + filename + ".PDF";
-    this.changeZoom();
-    console.log(this.pdfUrl);
+  public changePage(pageNumber) {
+    console.log(pageNumber);
+    console.log(this.fileNamePrefix + pageNumber);
+    this.viewEPaperPDF(this.fileNamePrefix + pageNumber);
+    this.currentPage = pageNumber;
   }
 
-  viewPDF(pdf): any {
-    this.pdfUrl = this.storageDirectory + "/" + pdf;
-    this.changeZoom();
+  public viewEPaperPDF(filename: string) {
+    if (!this.loading.instance) {
+      console.log("Loading called from view");
+      this.loading = this.loadingCtrl.create({
+        content: 'Loading...',
+        dismissOnPageChange: false
+      });
+      this.loading.present();
+    }
+    console.log("Viewing PDF" + this.fileDirectory + filename + ".PDF");
+    this.pdfUrl = this.fileDirectory + filename + ".PDF";
     console.log(this.pdfUrl);
-    let date_1: Date = new Date();
-    console.log(moment(date_1).format("YYYY/MM/DD"));
   }
 
   changeZoom() {
