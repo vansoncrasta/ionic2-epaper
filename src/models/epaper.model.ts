@@ -5,6 +5,14 @@ export class EPaper {
   editionName: string = "";
   noOfPages: number = 0;
   publishDate: Date;
+
+  //Url string after base url.
   url: string = "";
-  thumbnailsFullUrl = "";
+
+  //This is the prefix for all the thumnails
+  //E.g ..UVANI/MAN/2017/03/21/Thumbnails/20170321_<To be added by logic>
+  thumbnailsUrl = "";
+
+  //Server side url
+  remoteUrl=""
 }

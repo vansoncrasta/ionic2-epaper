@@ -12,7 +12,8 @@
 <ion-content>
   <ion-item>
     <ion-label>Date</ion-label>
-    <ion-datetime displayFormat="DD-MMMM-YYYY" pickerFormat="DD MMM YYYY" [min]="minDateForPicker" [max]="todaysDate" [(ngModel)]="publishDate" (ionChange)="setPublishDate(publishDate)"></ion-datetime>
+    <ion-datetime displayFormat="DD-MMMM-YYYY" pickerFormat="DD MMM YYYY" [min]="minDateForPicker" [max]="todaysDate" [(ngModel)]="publishDate"
+      (ionChange)="setPublishDate(publishDate)"></ion-datetime>
   </ion-item>
 
   <ion-card>
@@ -28,7 +29,7 @@
             Pages: {{epaper.noOfPages}}
           </ion-col>
           <ion-col text-right>
-            <ion-img width="120" height="185" [src]="epaper.thumbnailsFullUrl"></ion-img>
+            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+'1_carousalthumb.jpg'"></ion-img>
           </ion-col>
         </ion-row>
         <ion-row>

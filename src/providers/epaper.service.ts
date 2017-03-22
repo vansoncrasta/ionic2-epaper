@@ -27,7 +27,8 @@ export class EPaperService {
       .map(response => {
         let body = response.text();
         epaper.noOfPages = ((body.split('.PDF').length - 1) / 2);
-        epaper.thumbnailsFullUrl = this.siteUrl + epaper.url + "/Thumbnails/" + moment(epaper.publishDate).format("YYYYMMDD") + "_1_carousalthumb.jpg";
+        epaper.thumbnailsUrl = this.siteUrl + epaper.url + "/Thumbnails/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
+        epaper.remoteUrl =  this.siteUrl + epaper.url + "/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
         return epaper;
       });
   }
