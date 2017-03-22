@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
-import { EPaperService } from '../../providers/index';
+
+import { EPaperService, UserSettingsService } from '../../providers/index';
 import { ViewEPaperPage } from '../index';
 import { EPaper } from '../../models/index';
 import * as moment from 'moment';
@@ -16,26 +17,34 @@ export class EPaperDetailsPage {
   private todaysDate: any;
   private minDateForPicker: any;
   private loading: any;
+  private isFavouriteEPaper: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public epaperService: EPaperService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public epaperService: EPaperService,
+    public loadingCtrl: LoadingController, public userSettingsService: UserSettingsService) {
+
     this.epaper = this.navParams.data;
+    this.userSettingsService.isFavouriteEPaper(this.epaper).then(
+      (data) => {
+        console.log(data);
+        this.isFavouriteEPaper = data ? true : false
+      });
+
     this.epaper.publishDate = new Date();
     //toISOString() returns time in UTC. Add 6 hrs to compensate IST.
     this.todaysDate = moment().add(6, 'hours').toISOString();
     this.publishDate = moment().add(6, 'hours').toISOString();
     //Only last 7 days of paper available.
     this.minDateForPicker = moment().subtract(7, 'day').toISOString();
-    this.epaper.url = this.epaper.id + "/" + this.epaper.editionID + "/" + moment(this.epaper.publishDate).format("YYYY/MM/DD");
-    console.log(this.epaper.url);
     console.log(this.publishDate);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EPaperDetailsPage');
     this.getEPaperDetails();
+
   }
 
-  public viewEPaper($event) {
+  public viewEPaper() {
     this.navCtrl.push(ViewEPaperPage, this.epaper);
   }
 
@@ -43,7 +52,6 @@ export class EPaperDetailsPage {
   // https://github.com/driftyco/ionic/issues/9348
   public setPublishDate(publishDate) {
     this.epaper.publishDate = moment(publishDate).toDate();
-    this.epaper.url = this.epaper.id + "/" + this.epaper.editionID + "/" + moment(this.epaper.publishDate).format("YYYY/MM/DD");
     this.getEPaperDetails();
   }
 
@@ -75,6 +83,18 @@ export class EPaperDetailsPage {
     if (this.loading.instance) {
       this.loading.dismiss();
     }
+  }
+
+  public setFavouriteEPaper() {
+    this.userSettingsService.setFavouriteEPaper(this.epaper).then(
+      () => { this.isFavouriteEPaper = true; }
+    );
+  }
+
+  public removeFavouriteEPaper() {
+    this.userSettingsService.removeFavouriteEPaper(this.epaper).then(
+      () => { this.isFavouriteEPaper = false; }
+    );
   }
 
 }

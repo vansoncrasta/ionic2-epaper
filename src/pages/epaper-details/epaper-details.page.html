@@ -26,16 +26,17 @@
         <ion-row>
           <ion-col>
             <h2>{{epaper.editionName}} Edition</h2>
-            Pages: {{epaper.noOfPages}}
+            <h3>Pages: {{epaper.noOfPages}}</h3>
           </ion-col>
           <ion-col text-right>
-            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+'1_carousalthumb.jpg'"></ion-img>
+            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+'1_carousalthumb.jpg'" (click)="viewEPaper()"></ion-img>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <button ion-button icon-right>Add Favourite<ion-icon name="star"></ion-icon></button>
-            <button ion-button icon-right (click)="viewEPaper($event)" [disabled]="epaper.noOfPages == 0">Read<ion-icon name="book"></ion-icon></button>
+            <button ion-button icon-right (click)="setFavouriteEPaper()" *ngIf="!isFavouriteEPaper">Favourite<ion-icon name="star"></ion-icon></button>
+            <button ion-button icon-right (click)="removeFavouriteEPaper()" *ngIf="isFavouriteEPaper">Un-Favourite<ion-icon name="star"></ion-icon></button>
+            <button ion-button icon-right (click)="viewEPaper()" [disabled]="epaper.noOfPages == 0">Read<ion-icon name="book"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -1,14 +1,17 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { MyEPapersPage, ViewEPaperPage, EPaperDetailsPage, EPapersPage } from '../pages/index';
-import { EPaperService } from '../providers/index';
-import { PdfViewerComponent } from 'ng2-pdf-viewer';
-
+//Ionic Native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
+import { IonicStorageModule } from '@ionic/storage';
+//3rd Party
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
+//Local
+import { MyEPapersPage, ViewEPaperPage, EPaperDetailsPage, EPapersPage } from '../pages/index';
+import { EPaperService, UserSettingsService } from '../providers/index';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { Transfer } from '@ionic-native/transfer';
     PdfViewerComponent
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,7 +40,8 @@ import { Transfer } from '@ionic-native/transfer';
     File,
     Transfer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    EPaperService
+    EPaperService,
+    UserSettingsService
   ]
 })
 export class AppModule { }

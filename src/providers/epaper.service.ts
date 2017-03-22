@@ -24,6 +24,7 @@ export class EPaperService {
   }
 
   getEPaperDetails(epaper: EPaper): Observable<EPaper> {
+    epaper.url = epaper.id + "/" + epaper.editionID + "/" + moment(epaper.publishDate).format("YYYY/MM/DD");
     return this.http.get(this.siteUrl + "/" + epaper.url + "/")
       .map(response => {
         let body = response.text();
