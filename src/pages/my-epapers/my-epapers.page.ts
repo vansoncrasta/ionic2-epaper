@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { EPapersPage, ViewEPaperPage } from '../index';
+import { EPapersPage } from '../index';
 import { EPaperService } from '../../providers/index';
 
 @Component({

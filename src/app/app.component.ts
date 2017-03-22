@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {Platform, MenuController, Nav} from 'ionic-angular';
-import {StatusBar, Splashscreen} from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import {MyEPapersPage} from '../pages/index';
 
 @Component({
@@ -11,20 +12,17 @@ export class MyApp {
 
   // make MyEPapersPage the root (or first) page
   rootPage: any = MyEPapersPage;
-  constructor(public platform: Platform, public menu: MenuController) {
-    this.initializeApp();
-  }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
+  constructor(platform: Platform, public menu: MenuController, statusBar: StatusBar, splashScreen: SplashScreen) {
+    platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      statusBar.styleDefault();
+      splashScreen.hide();
     });
   }
 
-  /*
+    /*
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();

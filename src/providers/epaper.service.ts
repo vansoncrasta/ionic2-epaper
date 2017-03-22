@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
-import { File, Transfer } from 'ionic-native';
+import { File } from '@ionic-native/file';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { EPaper } from '../models/index';
 import * as moment from 'moment';
 
@@ -12,7 +13,7 @@ export class EPaperService {
   private baseUrl = "https://ionic2-epaper.firebaseio.com";
   private siteUrl = null;
 
-  constructor(public http: Http) { }
+  constructor(public http: Http, private file: File, private transfer: Transfer) { }
 
   public getAllEPapers(): Observable<any> {
     return this.http.get(this.baseUrl + "/site_01.json")
@@ -28,7 +29,7 @@ export class EPaperService {
         let body = response.text();
         epaper.noOfPages = ((body.split('.PDF').length - 1) / 2);
         epaper.thumbnailsUrl = this.siteUrl + epaper.url + "/Thumbnails/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
-        epaper.remoteUrl =  this.siteUrl + epaper.url + "/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
+        epaper.remoteUrl = this.siteUrl + epaper.url + "/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
         return epaper;
       });
   }
@@ -75,7 +76,7 @@ export class EPaperService {
 
   createFolder(storageDirectory, path, folderName): Promise<any> {
     console.log("Attempt to create folder : " + storageDirectory + "/" + path + "/" + folderName);
-    return File.createDir(storageDirectory + path, folderName, true)
+    return this.file.createDir(storageDirectory + path, folderName, true)
       .then(
       (success) => {
         console.log("Result of create folder : " + storageDirectory + "/" + path + "/" + folderName);
@@ -104,9 +105,9 @@ export class EPaperService {
   }
 
   private downloadEPaperPdfPage(fileUrl, fileDirectory, fileName) {
-    const fileTransfer = new Transfer();
+    const fileTransfer: TransferObject = this.transfer.create();
     console.log("Remote: " + fileUrl);
-    return File.checkFile(fileDirectory, fileName).then(
+    return this.file.checkFile(fileDirectory, fileName).then(
       (exists) => {
         console.log("File Exists: " + fileName);
       },

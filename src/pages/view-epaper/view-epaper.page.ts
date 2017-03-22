@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular';
 import { EPaperService } from '../../providers/index';
 import { EPaper } from '../../models/index';
-import * as moment from 'moment';
+import { ThemeableBrowserOptions } from '@ionic-native/themeable-browser';
 declare var cordova: any;
-import { ThemeableBrowser } from 'ionic-native';
 
 @Component({
   selector: 'page-view-epaper',
@@ -42,7 +41,7 @@ export class ViewEPaperPage {
     let pageUrl = this.epaper.remoteUrl + pageNumber + ".jpeg";
     console.log(pageUrl);
 
-    let themeableBrowserOptions = {
+    const themeableBrowserOptions: ThemeableBrowserOptions = {
       toolbar: {
         height: 50,
         color: '#387ef5'
@@ -66,12 +65,11 @@ export class ViewEPaperPage {
           event: 'reloadPressed'
         }
       ],
-      backButtonCanClose: true,
-      fullscreen: false,
-      clearcache: true,
-      clearsessioncache: true
+      backButtonCanClose: true
     };
 
+    // Unable to use const browser: ThemeableBrowserObject = this.themeableBrowser.create('https://ionic.io', '_blank', options)
+    // It doenot support event listeners.
     let browser = cordova.ThemeableBrowser.open(pageUrl, '_blank', themeableBrowserOptions);
     browser.addEventListener('backPressed', function (e) {
       console.log('back_pressed');
