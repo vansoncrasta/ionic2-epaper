@@ -31,9 +31,9 @@ export class ViewEPaperPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public alertCtrl: AlertController, public epaperService: EPaperService, public loadingCtrl: LoadingController) {
 
     this.epaper = this.navParams.data;
+    //Array to form the cards
     var i = 1;
     while (this.noOfPages.push(i++) < this.epaper.noOfPages);
-    console.log(this.noOfPages);
   }
 
   goToPage(pageNumber) {

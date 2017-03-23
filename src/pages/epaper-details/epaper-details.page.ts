@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { EPaperService, UserSettingsService } from '../../providers/index';
 import { ViewEPaperPage } from '../index';
@@ -20,28 +20,24 @@ export class EPaperDetailsPage {
   private isFavouriteEPaper: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public epaperService: EPaperService,
-    public loadingCtrl: LoadingController, public userSettingsService: UserSettingsService) {
+    public loadingCtrl: LoadingController, public userSettingsService: UserSettingsService, public alertController: AlertController) {
 
     this.epaper = this.navParams.data;
-    this.userSettingsService.isFavouriteEPaper(this.epaper).then(
-      (data) => {
-        console.log(data);
-        this.isFavouriteEPaper = data ? true : false
-      });
-
+    console.log(this.epaper.publishDate);
     this.epaper.publishDate = new Date();
     //toISOString() returns time in UTC. Add 6 hrs to compensate IST.
     this.todaysDate = moment().add(6, 'hours').toISOString();
     this.publishDate = moment().add(6, 'hours').toISOString();
     //Only last 7 days of paper available.
     this.minDateForPicker = moment().subtract(7, 'day').toISOString();
-    console.log(this.publishDate);
+    console.log(this.epaper.publishDate);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EPaperDetailsPage');
     this.getEPaperDetails();
-
+    this.userSettingsService.isFavouriteEPaper(this.epaper).then(
+      (data) => { this.isFavouriteEPaper = data ? true : false });
   }
 
   public viewEPaper() {
@@ -92,9 +88,29 @@ export class EPaperDetailsPage {
   }
 
   public removeFavouriteEPaper() {
-    this.userSettingsService.removeFavouriteEPaper(this.epaper).then(
-      () => { this.isFavouriteEPaper = false; }
-    );
+    let alert = this.alertController.create({
+      title: 'Remove Favourite',
+      message: 'Do you want to remove the E-Paper from your Favourites?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            console.log('Un-Favourite clicked');
+            this.userSettingsService.removeFavouriteEPaper(this.epaper).then(
+              () => { this.isFavouriteEPaper = false; }
+            );
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
