@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx'
 import { Observable } from "rxjs";
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
@@ -32,9 +33,13 @@ export class EPaperService {
         epaper.thumbnailsUrl = this.siteUrl + epaper.url + "/Thumbnails/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
         epaper.remoteUrl = this.siteUrl + epaper.url + "/" + moment(epaper.publishDate).format("YYYYMMDD") + "_";
         return epaper;
-      });
+      })
+      .catch(error => this.handleServerError(error));
   }
 
+  private handleServerError(error: Response) {
+    return Observable.throw('Server error'); // Observable.throw() is undefined at runtime using Webpack
+  }
   createDirectory(storageDirectory, directory): Promise<any> {
 
     let pathSplit = directory.split('/');
@@ -123,4 +128,12 @@ export class EPaperService {
   }
 
 
+  public resetEPaper(epaper: EPaper): EPaper {
+    epaper.noOfPages = 0;
+    epaper.publishDate = null;
+    epaper.remoteUrl = "";
+    epaper.thumbnailsUrl = "";
+    epaper.url = "";
+    return epaper;
+  }
 }

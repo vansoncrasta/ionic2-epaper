@@ -69,9 +69,13 @@ export class EPaperDetailsPage {
         console.log(epaper);
         this.loading.dismiss();
         console.log("Complete");
-      }, () => {
+      }, (error) => {
+        console.log(error);
+        //reset the epaper details.
+        this.epaperService.resetEPaper(this.epaper);
         this.loading.dismiss();
-      });
+      }
+      );
   }
 
   ionViewWillUnload() {
