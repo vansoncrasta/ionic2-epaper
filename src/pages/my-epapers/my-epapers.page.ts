@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { EPapersPage, EPaperDetailsPage } from '../index';
-import { EPaperService, UserSettingsService } from '../../providers/index';
+import { UserSettingsService } from '../../providers/index';
 
 @Component({
   selector: 'page-my-epapers',
@@ -10,20 +10,22 @@ import { EPaperService, UserSettingsService } from '../../providers/index';
 export class MyEPapersPage {
 
   private favourites: any[] = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ePaperService: EPaperService, public userSettingsService: UserSettingsService) { }
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userSettingsService: UserSettingsService, public events: Events) {
+    events.subscribe('favourite:updated', () => {
+      console.log('Favourite Updated');
+      this.favourites = [];
+      this.userSettingsService.getAllFavouritesStorage().forEach((value, key, index) => {
+        this.favourites.push(value);
+      });
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyEpapersPage');
-  }
-
-  ionViewDidEnter() {    
     this.favourites = [];
-    this.userSettingsService.getAllFavouritesStorage().forEach((value, key, index) => {      
-      console.log("This is the value: " + value)
-      console.log("from the key: " + key)
-      console.log("Index is: " + index)
+    this.userSettingsService.getAllFavouritesStorage().forEach((value, key, index) => {
       this.favourites.push(value);
-      console.log(this.favourites);
     });
   }
 
@@ -35,9 +37,4 @@ export class MyEPapersPage {
     this.navCtrl.push(EPaperDetailsPage, epaper);
   }
 
-  /*
-    viewPaper(){
-      this.navCtrl.push(ViewEPaperPage);
-    }
-  */
 }
