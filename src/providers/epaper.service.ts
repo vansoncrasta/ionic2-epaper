@@ -11,16 +11,24 @@ import * as moment from 'moment';
 @Injectable()
 export class EPaperService {
 
-  private baseUrl = "https://ionic2-epaper.firebaseio.com";
+  //private baseUrl = "https://ionic2-epaper.firebaseio.com";
+  private baseUrl = "assets/files";
   private siteUrl = null;
+  private allEPapers: any;
 
-  constructor(public http: Http, private file: File, private transfer: Transfer) { }
+  constructor(public http: Http, private file: File, private transfer: Transfer) { 
+      this.loadEPapersFromJSON().subscribe();
+  }
 
-  public getAllEPapers(): Observable<any> {
-    return this.http.get(this.baseUrl + "/site_01.json")
+  public getAllEPapers() {
+      return this.allEPapers;
+  }
+
+  loadEPapersFromJSON(): Observable<any> {
+    return this.http.get(this.baseUrl + "/epapers.json")
       .map(response => {
-        this.siteUrl = response.json().url;
-        return response.json().epapers;
+        this.siteUrl = response.json().site_01.url;
+        this.allEPapers = response.json().site_01.epapers;
       });
   }
 

@@ -13,9 +13,9 @@ export class UserSettingsService {
     });
   }
 
-  public setFavouriteEPaper(epaper: EPaper): Promise<any> {    
+  public setFavouriteEPaper(epaper: EPaper): Promise<any> {
     return this.storage.set(this.getFavItemKey(epaper), this.getFavItemValue(epaper)).then(
-      () => {this.events.publish('favourite:updated');}
+      () => { this.events.publish('favourite:updated'); }
     );
   }
 
@@ -25,7 +25,7 @@ export class UserSettingsService {
 
   public removeFavouriteEPaper(epaper: EPaper): Promise<any> {
     return this.storage.remove(this.getFavItemKey(epaper)).then(
-      () => {this.events.publish('favourite:updated');}
+      () => { this.events.publish('favourite:updated'); }
     );
   }
 
@@ -37,14 +37,16 @@ export class UserSettingsService {
     return epaper.id + "_" + epaper.editionID;
   }
 
-  private getFavItemValue(epaper: EPaper): EPaper {
-    //return JSON.stringify({ id: epaper.id, name: epaper.name, editionID: epaper.editionID, editionName: epaper.editionName });
+  private getFavItemValue(epaper: EPaper) {
+    return JSON.stringify({ id: epaper.id, name: epaper.name, editionID: epaper.editionID, editionName: epaper.editionName });
+    /*
     let tempEPaper: EPaper =  new EPaper;
     tempEPaper.id = epaper.id;
     tempEPaper.name = epaper.name;
     tempEPaper.editionID = epaper.editionID;
     tempEPaper.editionName = epaper.editionName;
     return tempEPaper;
+    */
   }
 
 }
