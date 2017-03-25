@@ -25,9 +25,9 @@ export class EPaperDetailsPage {
     this.epaper = this.navParams.data;
     console.log(this.epaper.publishDate);
     this.epaper.publishDate = new Date();
-    //toISOString() returns time in UTC. Add 6 hrs to compensate IST.
-    this.todaysDate = moment().add(6, 'hours').toISOString();
-    this.publishDate = moment().add(6, 'hours').toISOString();
+    //toISOString() returns time in UTC. Add 5.5 hrs to compensate IST.
+    //TODO: Make Time Zone independent.
+    this.publishDate = this.todaysDate = moment().add({ hours: 5, minutes: 30 }, 'hours').toISOString();
     //Only last 7 days of paper available.
     this.minDateForPicker = moment().subtract(7, 'day').toISOString();
     console.log(this.epaper.publishDate);
