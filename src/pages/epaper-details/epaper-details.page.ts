@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
 
 import { EPaperService, UserSettingsService } from '../../providers/index';
 import { ViewEPaperPage } from '../index';
@@ -20,7 +20,7 @@ export class EPaperDetailsPage {
   private isFavouriteEPaper: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public epaperService: EPaperService,
-    public loadingCtrl: LoadingController, public userSettingsService: UserSettingsService, public alertController: AlertController) {
+    public loadingCtrl: LoadingController, public userSettingsService: UserSettingsService, public alertController: AlertController, public toastCtrl: ToastController) {
 
     this.epaper = this.navParams.data;
     console.log(this.epaper.publishDate);
@@ -74,6 +74,12 @@ export class EPaperDetailsPage {
         //reset the epaper details.
         this.epaperService.resetEPaper(this.epaper);
         this.loading.dismiss();
+        let toast = this.toastCtrl.create({
+          message: 'E-Paper not available. Please try later.',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
       }
       );
   }
