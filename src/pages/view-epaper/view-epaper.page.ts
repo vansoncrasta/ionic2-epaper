@@ -28,7 +28,12 @@ export class ViewEPaperPage {
   private epaper: EPaper;
   private noOfPages: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public alertCtrl: AlertController, public epaperService: EPaperService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public platform: Platform,
+    public alertCtrl: AlertController,
+    public epaperService: EPaperService,
+    public loadingCtrl: LoadingController) {
 
     this.epaper = this.navParams.data;
     //Array to form the cards

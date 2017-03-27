@@ -7,6 +7,18 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar class="view-paper-details-toolbar" color="light">
+    <ion-title>
+      <ion-row>
+        <ion-col>
+          {{epaper.editionName}}
+        </ion-col>
+        <ion-col text-right>
+          {{epaper.publishDate | date:"EEE dd-MMMM-yyyy"}}
+        </ion-col>
+      </ion-row>
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <!--FAB Buttons -->
@@ -22,8 +34,8 @@
     <ion-row>
       <ion-col col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1 *ngFor="let pageNumber of noOfPages">
         <ion-card text-center align-self-center (click)="goToPage(pageNumber)">
-            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+pageNumber+'.jpg'"></ion-img>
-            <p>{{pageNumber}}</p>
+          <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+pageNumber+'.jpg'"></ion-img>
+          <p>{{pageNumber}}</p>
         </ion-card>
       </ion-col>
     </ion-row>
