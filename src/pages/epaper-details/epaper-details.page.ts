@@ -68,6 +68,14 @@ export class EPaperDetailsPage {
       (epaper) => {
         console.log(epaper);
         this.loading.dismiss();
+        if (epaper.noOfPages == 0){
+          let toast = this.toastCtrl.create({
+            message: 'E-Paper not available. Please try later.',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
+        }
         console.log("Complete");
       }, (error) => {
         console.log(error);

@@ -3,8 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My E-Papers</ion-title>
+    <ion-title>E-Paper</ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-title>My E-Papers</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -22,7 +25,7 @@
 
   <ion-card *ngIf="favourites?.length>0">
     <ion-card-header class="my-epapers-header">Favourite E-Papers</ion-card-header>
-    <ion-list>      
+    <ion-list>
       <button icon-left ion-item *ngFor="let epaper of favourites" (click)="epaperSelected($event, epaper)">
           <ion-icon name="star"></ion-icon>{{epaper.name}}
           <p>{{epaper.editionName}} Edition</p>

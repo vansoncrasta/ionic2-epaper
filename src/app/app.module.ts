@@ -7,8 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
-//3rd Party
-import { PdfViewerComponent } from 'ng2-pdf-viewer';
+
 //Local
 import { MyEPapersPage, ViewEPaperPage, EPaperDetailsPage, EPapersPage } from '../pages/index';
 import { EPaperService, UserSettingsService } from '../providers/index';
@@ -19,8 +18,7 @@ import { EPaperService, UserSettingsService } from '../providers/index';
     MyEPapersPage,
     ViewEPaperPage,
     EPaperDetailsPage,
-    EPapersPage,
-    PdfViewerComponent
+    EPapersPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),

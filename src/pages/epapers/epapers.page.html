@@ -11,6 +11,7 @@
 
 
 <ion-content>
+  <ion-searchbar (ionInput)="getEPapers($event)"></ion-searchbar>
   <ion-item-group *ngFor="let epaper of epapers">
     <ion-item-divider color="light">{{ epaper.name | uppercase}}</ion-item-divider>
     <button ion-item *ngFor="let edition of epaper.editions" (click)="epaperSelected($event, epaper, edition)">
