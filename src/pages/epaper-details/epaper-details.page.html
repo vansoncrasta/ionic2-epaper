@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-title>{{epaper.name}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="goToHomePage()">
+      <button ion-button (tap)="goToHomePage()">
         <ion-icon name="home"></ion-icon>
       </button>
     </ion-buttons>
@@ -29,14 +29,14 @@
             <h3>Pages: {{epaper.noOfPages}}</h3>
           </ion-col>
           <ion-col text-right>
-            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+'1_carousalthumb.jpg'" (click)="viewEPaper()"></ion-img>
+            <ion-img width="120" height="170" [src]="epaper.thumbnailsUrl+'1_carousalthumb.jpg'" (tap)="viewEPaper()"></ion-img>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col text-center>
-            <button ion-button icon-right (click)="setFavouriteEPaper()" *ngIf="!isFavouriteEPaper">Favourite<ion-icon name="star"></ion-icon></button>
-            <button ion-button icon-right (click)="removeFavouriteEPaper()" *ngIf="isFavouriteEPaper">Un-Favourite<ion-icon name="star"></ion-icon></button>
-            <button ion-button icon-right (click)="viewEPaper()" [disabled]="epaper.noOfPages == 0">Read<ion-icon name="book"></ion-icon></button>
+            <button ion-button icon-right (tap)="setFavouriteEPaper()" *ngIf="!isFavouriteEPaper">Favourite<ion-icon name="star"></ion-icon></button>
+            <button ion-button icon-right (tap)="removeFavouriteEPaper()" *ngIf="isFavouriteEPaper">Un-Favourite<ion-icon name="star"></ion-icon></button>
+            <button ion-button icon-right (tap)="viewEPaper()" [disabled]="epaper.noOfPages == 0">Read<ion-icon name="book"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-grid>
