@@ -26,8 +26,7 @@ export class EPaperDetailsPage {
     console.log(this.epaper.publishDate);
     this.epaper.publishDate = new Date();
     //toISOString() returns time in UTC. Add 5.5 hrs to compensate IST.
-    //TODO: Make Time Zone independent.
-    this.publishDate = this.todaysDate = moment().add({ hours: 5, minutes: 30 }, 'hours').toISOString();
+    this.publishDate = this.todaysDate = moment().startOf('day').add({ hours: 5, minutes: 30 }, 'hours').toISOString();
     //Only last 7 days of paper available.
     this.minDateForPicker = moment().subtract(7, 'day').toISOString();
     console.log(this.epaper.publishDate);
@@ -47,6 +46,7 @@ export class EPaperDetailsPage {
   // As of ionic 2.2.0 <ion-datetime> does not support Javascript date.
   // https://github.com/driftyco/ionic/issues/9348
   public setPublishDate(publishDate) {
+    console.log(moment(publishDate).toDate());
     this.epaper.publishDate = moment(publishDate).toDate();
     this.getEPaperDetails();
   }
@@ -68,7 +68,7 @@ export class EPaperDetailsPage {
       (epaper) => {
         console.log(epaper);
         this.loading.dismiss();
-        if (epaper.noOfPages == 0){
+        if (epaper.noOfPages == 0) {
           let toast = this.toastCtrl.create({
             message: 'E-Paper not available. Please try later.',
             duration: 3000,
