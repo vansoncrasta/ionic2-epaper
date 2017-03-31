@@ -28,7 +28,7 @@
     <ion-list>
       <button icon-left ion-item *ngFor="let epaper of favourites" (tap)="epaperSelected($event, epaper)">
           <ion-icon name="star"></ion-icon>{{epaper.name}}
-          <p>{{epaper.editionName}} Edition</p>
+          <p class="fav-edition-name">{{epaper.editionName}} Edition</p>
       </button>
     </ion-list>
     <ion-card-content>
