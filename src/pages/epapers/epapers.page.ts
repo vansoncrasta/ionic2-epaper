@@ -17,7 +17,19 @@ export class EPapersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EPapersPage');
-    this.epapers = this.allEPapers = this.epaperService.getAllEPapers();
+    this.allEPapers = this.epaperService.getAllEPapers();
+    for (let entry of this.allEPapers) {
+      entry.showDetails = false;
+    }
+    this.epapers = this.allEPapers;
+  }
+
+  toggleDetails(data) {
+      data.showDetails = !data.showDetails;
+  }
+
+  getCollapseIcon(data){
+    return data.showDetails? 'arrow-dropup' : 'arrow-dropdown';
   }
 
   getEPapers(epaper: any) {

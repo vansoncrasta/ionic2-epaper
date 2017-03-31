@@ -13,9 +13,13 @@
 <ion-content>
   <ion-searchbar (ionInput)="getEPapers($event)"></ion-searchbar>
   <ion-item-group *ngFor="let epaper of epapers">
-    <ion-item-divider color="light">{{ epaper.name | uppercase}}</ion-item-divider>
-    <button ion-item *ngFor="let edition of epaper.editions" (tap)="epaperSelected($event, epaper, edition)">
+    <ion-item-divider class="custom-epaper-divider" (tap)="toggleDetails(epaper)">{{ epaper.name | uppercase}}
+      <ion-icon color="primary" item-right [name]="getCollapseIcon(epaper)"></ion-icon>
+    </ion-item-divider>
+    <div *ngIf="epaper.showDetails">
+      <button ion-item *ngFor="let edition of epaper.editions" (tap)="epaperSelected($event, epaper, edition)">
       {{ edition.name }} Edition
     </button>
+    </div>
   </ion-item-group>
 </ion-content>
