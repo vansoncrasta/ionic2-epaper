@@ -43,8 +43,16 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-themeablebrowser",
+    "cordova-sqlite-storage"
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
+  ],
   "description": "EPaper: A simle app to read E-Papers"
 }
