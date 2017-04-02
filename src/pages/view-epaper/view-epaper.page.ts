@@ -4,6 +4,7 @@ import { EPaperService } from '../../providers/index';
 import { EPaper } from '../../models/index';
 import { ThemeableBrowserOptions } from '@ionic-native/themeable-browser';
 declare var cordova: any;
+declare var AndroidNativePdfViewer: any;
 
 @Component({
   selector: 'page-view-epaper',
@@ -43,50 +44,65 @@ export class ViewEPaperPage {
 
   goToPage(pageNumber) {
     console.log(pageNumber);
-    let pageUrl = this.epaper.remoteUrl + pageNumber + ".jpeg";
-    console.log(pageUrl);
+    if (this.platform.is('ios')) {
+      let pageUrl = this.epaper.remoteUrl + pageNumber + ".jpeg";
+      const themeableBrowserOptions: ThemeableBrowserOptions = {
+        toolbar: {
+          height: 50,
+          color: '#387ef5'
+        },
+        title: {
+          color: '#f4f4f4',
+          showPageTitle: true,
+          staticText: 'Page ' + pageNumber
+        },
+        backButton: {
+          image: 'back',
+          imagePressed: 'back_pressed',
+          align: 'left',
+          event: 'backPressed'
+        },
+        customButtons: [
+          {
+            image: 'reload',
+            imagePressed: 'share_pressed',
+            align: 'right',
+            event: 'reloadPressed'
+          }
+        ],
+        backButtonCanClose: true
+      };
 
-    const themeableBrowserOptions: ThemeableBrowserOptions = {
-      toolbar: {
-        height: 50,
-        color: '#387ef5'
-      },
-      title: {
-        color: '#f4f4f4',
-        showPageTitle: true,
-        staticText: 'Page ' + pageNumber
-      },
-      backButton: {
-        image: 'back',
-        imagePressed: 'back_pressed',
-        align: 'left',
-        event: 'backPressed'
-      },
-      customButtons: [
-        {
-          image: 'reload',
-          imagePressed: 'share_pressed',
-          align: 'right',
-          event: 'reloadPressed'
-        }
-      ],
-      backButtonCanClose: true
-    };
-
-    // Unable to use const browser: ThemeableBrowserObject = this.themeableBrowser.create('https://ionic.io', '_blank', options)
-    // It doenot support event listeners.
-    let browser = cordova.ThemeableBrowser.open(pageUrl, '_blank', themeableBrowserOptions);
-    browser.addEventListener('backPressed', function (e) {
-      console.log('back_pressed');
-      browser.close();
-    }).addEventListener('reloadPressed', function (e) {
-      console.log('reload_pressed');
-      browser.reload();
-    }).addEventListener(cordova.ThemeableBrowser.EVT_ERR, function (e) {
-      console.error(e.message);
-    }).addEventListener(cordova.ThemeableBrowser.EVT_WRN, function (e) {
-      console.log(e.message);
-    });
+      // Unable to use const browser: ThemeableBrowserObject = this.themeableBrowser.create('https://ionic.io', '_blank', options)
+      // It does not support event listeners.
+      let browser = cordova.ThemeableBrowser.open(pageUrl, '_blank', themeableBrowserOptions);
+      browser.addEventListener('backPressed', function (e) {
+        console.log('back_pressed');
+        browser.close();
+      }).addEventListener('reloadPressed', function (e) {
+        console.log('reload_pressed');
+        browser.reload();
+      }).addEventListener(cordova.ThemeableBrowser.EVT_ERR, function (e) {
+        console.error(e.message);
+      }).addEventListener(cordova.ThemeableBrowser.EVT_WRN, function (e) {
+        console.log(e.message);
+      });
+    } else if (this.platform.is('android')) {
+      let pageUrl = this.epaper.remoteUrl + pageNumber + ".PDF";
+      let options = {
+        headerColor: "#387ef5",
+        showScroll: true,
+        showShareButton: false,
+        showCloseButton: true,
+        swipeHorizontal: false
+      };
+      AndroidNativePdfViewer.openPdfUrl(pageUrl, 'Page ' + pageNumber, options,
+        function (success) {
+          console.log(pageUrl)
+        }, function (error) {
+          console.log("It didn't work!")
+        });
+    }
   }
   /*
   this.platform.ready().then(() => {
