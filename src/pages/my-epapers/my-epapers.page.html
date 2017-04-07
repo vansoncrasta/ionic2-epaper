@@ -16,7 +16,7 @@
     <ion-card-content>
       <p>You are currently not following any ePapers.</p>
       <p>First select a ePaper, then you can follow it from their details page.</p>
-      <button ion-button icon-left full (tap)="goToEPapersPage()">
+      <button ion-button icon-left full (click)="goToEPapersPage()">
         <ion-icon name="search"></ion-icon>
         Find a e-Paper
       </button>
@@ -26,14 +26,14 @@
   <ion-card *ngIf="favourites?.length>0">
     <ion-card-header class="my-epapers-header">Favourite ePapers</ion-card-header>
     <ion-list>
-      <button icon-left ion-item *ngFor="let epaper of favourites" (tap)="epaperSelected($event, epaper)">
+      <button icon-left ion-item *ngFor="let epaper of favourites" (click)="epaperSelected($event, epaper)">
           <ion-icon name="star"></ion-icon>{{epaper.name}}
           <p class="fav-edition-name">{{epaper.editionName}} Edition</p>
       </button>
     </ion-list>
     <ion-card-content>
       <p>To follow more, select an ePaper, then you can follow them from their details page.</p>
-      <button ion-button icon-left full (tap)="goToEPapersPage()">
+      <button ion-button icon-left full (click)="goToEPapersPage()">
         <ion-icon name="search"></ion-icon>
         Find a E-Paper
       </button>

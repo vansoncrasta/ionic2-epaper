@@ -25,11 +25,11 @@ export class EPapersPage {
   }
 
   toggleDetails(data) {
-      data.showDetails = !data.showDetails;
+    data.showDetails = !data.showDetails;
   }
 
-  getCollapseIcon(data){
-    return data.showDetails? 'arrow-dropup' : 'arrow-dropdown';
+  getCollapseIcon(data) {
+    return data.showDetails ? 'arrow-dropup' : 'arrow-dropdown';
   }
 
   getEPapers(epaper: any) {
