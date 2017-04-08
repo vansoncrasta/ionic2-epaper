@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController, LoadingController, IonicPage } from 'ionic-angular';
 import { EPaperService } from '../../providers/index';
 import { EPaper } from '../../models/index';
 import { ThemeableBrowserOptions } from '@ionic-native/themeable-browser';
 declare var cordova: any;
 declare var AndroidNativePdfViewer: any;
 
+@IonicPage({
+  name: 'ViewEPaperPage'
+})
 @Component({
   selector: 'page-view-epaper',
   templateUrl: 'view-epaper.page.html'

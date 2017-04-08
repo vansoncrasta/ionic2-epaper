@@ -11,16 +11,11 @@ import { Transfer } from '@ionic-native/transfer';
 import { IonicStorageModule } from '@ionic/storage';
 
 //Local
-import { MyEPapersPage, ViewEPaperPage, EPaperDetailsPage, EPapersPage } from '../pages/index';
 import { EPaperService, UserSettingsService } from '../providers/index';
 
 @NgModule({
   declarations: [
-    MyApp,
-    MyEPapersPage,
-    ViewEPaperPage,
-    EPaperDetailsPage,
-    EPapersPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -30,11 +25,7 @@ import { EPaperService, UserSettingsService } from '../providers/index';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    MyEPapersPage,
-    EPaperDetailsPage,
-    EPapersPage,
-    ViewEPaperPage
+    MyApp
   ],
   providers: [
     StatusBar,

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, ToastController, IonicPage } from 'ionic-angular';
 
 import { EPaperService, UserSettingsService } from '../../providers/index';
-import { ViewEPaperPage } from '../index';
 import { EPaper } from '../../models/index';
 import * as moment from 'moment';
 
+@IonicPage({
+  name: 'EPaperDetailsPage'
+})
 @Component({
   selector: 'page-epaper-details',
   templateUrl: 'epaper-details.page.html'
@@ -40,7 +42,7 @@ export class EPaperDetailsPage {
   }
 
   public viewEPaper() {
-    this.navCtrl.push(ViewEPaperPage, this.epaper);
+    this.navCtrl.push('ViewEPaperPage', this.epaper);
   }
 
   // As of ionic 2.2.0 <ion-datetime> does not support Javascript date.

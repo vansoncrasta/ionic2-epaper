@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
-import { EPapersPage, EPaperDetailsPage } from '../index';
+import { NavController, NavParams, Events, IonicPage } from 'ionic-angular';
 import { UserSettingsService } from '../../providers/index';
 import { EPaper } from '../../models/index';
 
+@IonicPage({
+  name: 'MyEPapersPage'
+})
 @Component({
   selector: 'page-my-epapers',
   templateUrl: 'my-epapers.page.html'
@@ -31,7 +33,7 @@ export class MyEPapersPage {
   }
 
   goToEPapersPage() {
-    this.navCtrl.push(EPapersPage);
+    this.navCtrl.push('EPapersPage');
   }
 
   epaperSelected($event, epaper) {
@@ -40,7 +42,7 @@ export class MyEPapersPage {
     selectedEPaper.name = epaper.name;
     selectedEPaper.editionID = epaper.editionID;
     selectedEPaper.editionName = epaper.editionName;
-    this.navCtrl.push(EPaperDetailsPage, selectedEPaper);
+    this.navCtrl.push('EPaperDetailsPage', selectedEPaper);
   }
 
 }
