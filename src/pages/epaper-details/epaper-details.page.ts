@@ -70,7 +70,7 @@ export class EPaperDetailsPage {
         this.loading.dismiss();
         if (epaper.noOfPages == 0) {
           let toast = this.toastCtrl.create({
-            message: 'E-Paper not available. Please try later.',
+            message: 'ePaper not available. Please try later.',
             duration: 3000,
             position: 'bottom'
           });
@@ -83,7 +83,7 @@ export class EPaperDetailsPage {
         this.epaperService.resetEPaper(this.epaper);
         this.loading.dismiss();
         let toast = this.toastCtrl.create({
-          message: 'E-Paper not available. Please try later.',
+          message: 'ePaper not available. Please try later.',
           duration: 3000,
           position: 'bottom'
         });
@@ -101,14 +101,22 @@ export class EPaperDetailsPage {
 
   public setFavouriteEPaper() {
     this.userSettingsService.setFavouriteEPaper(this.epaper).then(
-      () => { this.isFavouriteEPaper = true; }
+      () => {
+        this.isFavouriteEPaper = true;
+        let toast = this.toastCtrl.create({
+          message: 'ePaper added to Favourites',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      }
     );
   }
 
   public removeFavouriteEPaper() {
     let alert = this.alertController.create({
       title: 'Remove Favourite',
-      message: 'Do you want to remove the E-Paper from your Favourites?',
+      message: 'Do you want to remove the ePaper from your Favourites?',
       buttons: [
         {
           text: 'Cancel',
@@ -122,7 +130,15 @@ export class EPaperDetailsPage {
           handler: () => {
             console.log('Un-Favourite clicked');
             this.userSettingsService.removeFavouriteEPaper(this.epaper).then(
-              () => { this.isFavouriteEPaper = false; }
+              () => {
+                this.isFavouriteEPaper = false;
+                let toast = this.toastCtrl.create({
+                  message: 'ePaper removed from Favourites',
+                  duration: 3000,
+                  position: 'bottom'
+                });
+                toast.present();
+              }
             );
           }
         }
