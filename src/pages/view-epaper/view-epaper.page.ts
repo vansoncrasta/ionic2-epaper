@@ -52,7 +52,7 @@ export class ViewEPaperPage {
       const themeableBrowserOptions: ThemeableBrowserOptions = {
         toolbar: {
           height: 50,
-          color: '#387ef5'
+          color: '#488aff'
         },
         title: {
           color: '#f4f4f4',
@@ -93,7 +93,7 @@ export class ViewEPaperPage {
     } else if (this.platform.is('android')) {
       let pageUrl = this.epaper.remoteUrl + pageNumber + ".PDF";
       let options = {
-        headerColor: "#387ef5",
+        headerColor: "#488aff",
         showScroll: true,
         showShareButton: false,
         showCloseButton: true,

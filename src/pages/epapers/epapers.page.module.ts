@@ -13,4 +13,5 @@ import { EPapersPage } from './epapers.page';
     EPapersPage
   ]
 })
-export class EPapersPageModule {}
+export class EPapersPageModule {
+}

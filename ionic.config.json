@@ -1,6 +1,7 @@
 {
   "name": "EPaper",
   "app_id": "b7b309df",
+  "typescript": true,
   "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }
